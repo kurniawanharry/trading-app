@@ -1,0 +1,78 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Dev iOS",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/launcher/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--debug",
+                "-v"
+            ]
+        },
+        {
+            "name": "Production iOS",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/launcher/main_prd.dart",
+            "args": [
+                "--flavor",
+                "prod",
+                "--release"
+            ]
+        },
+        {
+            "name": "Dev Android",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/launcher/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--debug",
+                "-v"
+            ]
+        },
+        {
+            "name": "Stg Android",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/launcher/main_stg.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--debug",
+                "-v"
+            ]
+        },
+        {
+            "name": "Release Dev Android",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/launcher/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--release",
+                "-v"
+            ]
+        },
+        {
+            "name": "Production Android",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/launcher/main_prd.dart",
+            "args": [
+                "--flavor",
+                "prod",
+                "--release"
+            ]
+        },    
+    ]
+}

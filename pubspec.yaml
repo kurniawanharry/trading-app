@@ -1,0 +1,56 @@
+name: matcha_id
+description: A new Flutter project.
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+  # Domains
+  authentication:
+    path: domains/authentication
+  commons_domain:
+    path: domains/commons_domain
+
+  # Features
+  onboarding:
+    path: features/onboarding
+  home:
+    path: features/home
+  main:
+    path: features/main
+  market:
+    path: features/market
+  portofolio:
+    path: features/portofolio
+
+  # Resources
+  resources:
+    path: resources/resources
+
+  # Shared libraries
+  common:
+    path: shared_libraries/common
+  component:
+    path: shared_libraries/component
+  core:
+    path: shared_libraries/core
+  dependencies:
+    path: shared_libraries/dependencies
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true

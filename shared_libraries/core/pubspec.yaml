@@ -1,0 +1,27 @@
+name: core
+description: A core flutter project module
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  common:
+    path: ../common
+  dependencies:
+    path: ../dependencies
+
+  commons_domain:
+    path: ../../domains/commons_domain
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.1.11
+
+flutter:
+  uses-material-design: true
