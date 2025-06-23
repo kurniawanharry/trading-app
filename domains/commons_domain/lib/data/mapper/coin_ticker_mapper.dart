@@ -1,11 +1,16 @@
 import 'package:commons_domain/data/models/markets/response/coin_gecko_coin.dart';
-import 'package:commons_domain/data/models/markets/response/crypto_model.dart';
+import 'package:commons_domain/data/models/markets/response/coin_ticker.dart';
 
 class CoinTickerMapper {
-  CryptoModel mapToCryptoModel(String name, CoinGeckoCoin? coinGeckoCoin) {
-    return CryptoModel(
-      name: name,
-      geckoCoin: coinGeckoCoin,
-    );
+  static Map<String, CoinTicker> mapToCryptoModel(CoinGeckoCoin? coin) {
+    return {
+      '${coin?.symbol.toUpperCase()}USDT': CoinTicker(
+        symbol: '${coin?.symbol.toUpperCase()}USDT',
+        baseAsset: coin?.symbol.toUpperCase() ?? '',
+        name: coin?.name ?? '',
+        imageUrl: coin?.image ?? '',
+        price: 0.0,
+      ),
+    };
   }
 }
