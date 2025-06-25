@@ -2,6 +2,7 @@
 /// *****************************************************
 ///  FlutterGen
 /// *****************************************************
+library;
 
 // ignore_for_file: directives_ordering,unnecessary_import
 

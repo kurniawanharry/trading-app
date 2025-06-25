@@ -7,11 +7,11 @@ ThemeData get appTheme => ThemeData(
       primarySwatch: Colors.blue,
       colorScheme: const ColorScheme.dark(
         primary: Colors.blueAccent,
-        surface: Color(0xFF121212),
+        surface: Color(0xFF0c0e12),
         onPrimary: Colors.white,
         onSurface: Colors.white,
       ),
-      scaffoldBackgroundColor: const Color(0xFF121212),
+      scaffoldBackgroundColor: const Color(0xFF0c0e12),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: Colors.red,
@@ -32,7 +32,7 @@ ThemeData get appTheme => ThemeData(
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         fillColor: const Color(0xFF1E1E1E),
         hintStyle: const TextStyle(color: Colors.grey),
         labelStyle: const TextStyle(color: Colors.white),
@@ -58,7 +58,7 @@ ThemeData get appTheme => ThemeData(
 AppBarTheme get appBarTheme => const AppBarTheme(
       centerTitle: false,
       systemOverlayStyle: SystemUiOverlayStyle.light,
-      color: Color(0xFF121212),
+      color: Color(0xFF0c0e12),
       actionsIconTheme: IconThemeData(
         color: Colors.white,
       ),

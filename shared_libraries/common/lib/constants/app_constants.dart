@@ -13,9 +13,9 @@ class CachedKey {
 }
 
 class BaseUrl {
-  static const String baseUrlProd = "https://megawe.serangkota.go.id/api/";
-  static const String baseUrlDev = "https://megawe.serangkota.go.id/api/";
-  static const String baseUrlStaging = "https://megawe.serangkota.go.id/api/";
+  static const String baseUrlProd = "https://api.binance.com";
+  static const String baseUrlDev = "https://api.binance.com";
+  static const String baseUrlStaging = "https://api.binance.com";
 }
 
 class SocketUrl {

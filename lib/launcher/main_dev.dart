@@ -13,7 +13,7 @@ Future<void> main() async {
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarIconBrightness: Brightness.light,
-    statusBarColor: Color(0xFF121212),
+    statusBarColor: Color(0xFF0c0e12),
   ));
 
   await Injections().initialize(baseUrl: Config.baseURL, socketUrl: Config.socketUrl);

@@ -10,6 +10,7 @@ class CoinTickerMapper {
         name: coin?.name ?? '',
         imageUrl: coin?.image ?? '',
         price: 0.0,
+        priceChangePercentage24h: 0.0,
       ),
     };
   }

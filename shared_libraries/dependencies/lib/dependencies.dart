@@ -1,1 +1,1 @@
-library depenedencies;
+library;

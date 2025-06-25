@@ -4,7 +4,7 @@ import 'package:common/error/failure_response.dart';
 import 'package:common/state/view_data_state.dart';
 import 'package:commons_domain/data/models/markets/response/coin_gecko_coin.dart';
 import 'package:commons_domain/data/models/markets/response/coin_ticker.dart';
-import 'package:commons_domain/data/models/markets/response/trade_model.dart';
+import 'package:commons_domain/data/models/markets/response/ticker_model.dart';
 import 'package:commons_domain/domain/usecase/market/gecko_usecase.dart';
 import 'package:commons_domain/domain/usecase/market/stream_market_multiple_usecase.dart';
 import 'package:commons_domain/domain/usecase/market/stream_market_usecase.dart';
@@ -19,7 +19,7 @@ class MarketCubit extends Cubit<MarketState> {
   final StreamMarketMultipleUsecase streamMarketMultipleUsecase;
   final GeckoUsecase geckoUsecase;
 
-  StreamSubscription<Either<FailureResponse, Trade>>? _subscription;
+  StreamSubscription<Either<FailureResponse, TickerData>>? _subscription;
 
   final Map<String, CoinTicker> _tickerMap = {};
 
@@ -46,12 +46,12 @@ class MarketCubit extends Cubit<MarketState> {
           final initialMap = {
             for (final coin in coinGeckoCoin)
               '${coin.symbol.toUpperCase()}USDT': CoinTicker(
-                symbol: '${coin.symbol.toUpperCase()}USDT',
-                baseAsset: coin.symbol.toUpperCase(),
-                name: coin.name,
-                imageUrl: coin.image,
-                price: 0.0,
-              ),
+                  symbol: '${coin.symbol.toUpperCase()}USDT',
+                  baseAsset: coin.symbol.toUpperCase(),
+                  name: coin.name,
+                  imageUrl: coin.image,
+                  price: 0.0,
+                  priceChangePercentage24h: 0.0),
           };
           _tickerMap.addAll(initialMap);
         }
@@ -77,11 +77,13 @@ class MarketCubit extends Cubit<MarketState> {
         },
         (trade) {
           final symbol = trade.symbol.toUpperCase();
-          final price = trade.price;
+          final price = trade.lastPrice;
+          final priceChange =
+              trade.openPrice != 0 ? ((price - trade.openPrice) / trade.openPrice) * 100 : 0.0;
 
           final existing = _tickerMap[symbol];
           if (existing != null) {
-            final updated = existing.copyWith(price: price);
+            final updated = existing.copyWith(price: price, priceChangePercentage: priceChange);
             _tickerMap[symbol] = updated;
             emit(state.copyWith(marketState: ViewData.loaded(data: Map.from(_tickerMap))));
           }

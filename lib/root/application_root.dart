@@ -73,12 +73,12 @@ class ApplicationRoot extends StatelessWidget {
                         )
                         ..streamMultiple(
                           [
-                            'btcusdt@trade',
-                            'ethusdt@trade',
-                            'dogeusdt@trade',
-                            'adausdt@trade',
-                            'solusdt@trade',
-                            'trxusdt@trade'
+                            'btcusdt@ticker',
+                            'ethusdt@ticker',
+                            'dogeusdt@ticker',
+                            'adausdt@ticker',
+                            'solusdt@ticker',
+                            'trxusdt@ticker'
                           ],
                         ),
                     ),
