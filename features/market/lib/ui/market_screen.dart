@@ -8,7 +8,7 @@ import 'package:market/cubit/market_cubit.dart';
 final priceFormatter = NumberFormat("#,##0.00", "en_US");
 
 String formattedPrice(double price) {
-  return priceFormatter.format(price); // Example: 101980.74 → "101,980.74"
+  return priceFormatter.format(price);
 }
 
 class MarketScreen extends StatelessWidget {
@@ -18,15 +18,13 @@ class MarketScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocConsumer<MarketCubit, MarketState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+        body: BlocBuilder<MarketCubit, MarketState>(
           builder: (context, state) {
             return NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   SliverAppBar(
+                    titleSpacing: 16.w,
                     title: Row(
                       children: [
                         Flexible(
@@ -35,7 +33,7 @@ class MarketScreen extends StatelessWidget {
                             decoration: InputDecoration(
                               hintText: 'Search Coin Pairs',
                               prefixIcon: Padding(
-                                padding: const EdgeInsets.only(left: 10, right: 5),
+                                padding: EdgeInsets.only(left: 10.w, right: 5.w),
                                 child: Icon(
                                   Icons.search,
                                 ),
@@ -44,7 +42,7 @@ class MarketScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 10.w),
                         Icon(Icons.more_horiz_outlined)
                       ],
                     ),
@@ -60,83 +58,98 @@ class MarketScreen extends StatelessWidget {
                     titleSpacing: 0,
                     surfaceTintColor: Color(0xFF0c0e12),
                     pinned: true,
-                    toolbarHeight: 140,
+                    toolbarHeight: MediaQuery.of(context).size.width > 600
+                        ? MediaQuery.of(context).size.height / 3
+                        : 120.h,
                     title: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Market',
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                style: TextStyle(
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ],
                           ),
                         ),
                         Divider(color: Colors.grey, thickness: 0.5),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Crypto',
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                style: TextStyle(
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                padding: EdgeInsets.all(6),
+                                padding: EdgeInsets.all(6.r),
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade900,
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(6.r),
                                 ),
                                 child: Text(
                                   'All',
-                                  style:
-                                      Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Name',
-                                style: Theme.of(context).textTheme.bodySmall,
+                                style: TextStyle(
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                               Row(
                                 children: [
                                   Text(
                                     'Last Price',
-                                    style: Theme.of(context).textTheme.bodySmall,
+                                    style: TextStyle(
+                                      fontSize: 8.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                   SizedBox(
-                                    width: 20.w,
+                                    width: 40.w,
                                   ),
                                   Text(
                                     '24h Chg%',
-                                    style: Theme.of(context).textTheme.bodySmall,
+                                    style: TextStyle(
+                                      fontSize: 8.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ],
                               )
@@ -162,7 +175,7 @@ class MarketScreen extends StatelessWidget {
                         ),
                       ),
                     ViewState.hasData => SliverPadding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                         sliver: SliverList(
                           delegate: SliverChildListDelegate.fixed(
                             [
@@ -173,7 +186,7 @@ class MarketScreen extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Image.network(ticker.imageUrl, width: 32),
+                                        Image.network(ticker.imageUrl, width: 23.w),
                                         SizedBox(width: 10),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,14 +194,14 @@ class MarketScreen extends StatelessWidget {
                                             Text(
                                               ticker.symbol.replaceAll('USDT', ''),
                                               style: TextStyle(
-                                                fontSize: 14.sp,
+                                                fontSize: 12.sp,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                             Text(
                                               ticker.name,
                                               style: TextStyle(
-                                                fontSize: 12.sp,
+                                                fontSize: 10.sp,
                                                 color: Colors.grey,
                                               ),
                                             ),
@@ -203,14 +216,14 @@ class MarketScreen extends StatelessWidget {
                                             Text(
                                               formattedPrice(ticker.price),
                                               style: TextStyle(
-                                                fontSize: 14.sp,
+                                                fontSize: 12.sp,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                             Text(
                                               '\$${formattedPrice(ticker.price)}',
                                               style: TextStyle(
-                                                fontSize: 12.sp,
+                                                fontSize: 10.sp,
                                                 color: Colors.grey,
                                               ),
                                             ),
@@ -221,7 +234,7 @@ class MarketScreen extends StatelessWidget {
                                           child: Container(
                                             alignment: Alignment.center,
                                             width: MediaQuery.of(context).size.width * 0.2,
-                                            padding: EdgeInsets.symmetric(vertical: 6),
+                                            padding: EdgeInsets.symmetric(vertical: 6.h),
                                             decoration: BoxDecoration(
                                               color: ticker.priceChangePercentage24h >= 0
                                                   ? Colors.greenAccent.shade700

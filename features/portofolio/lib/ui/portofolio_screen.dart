@@ -3,7 +3,6 @@ import 'package:dependencies/bloc/bloc.dart';
 import 'package:dependencies/flutter_screenutil/flutter_screenutil.dart';
 import 'package:dependencies/intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:market/cubit/market_cubit.dart';
 import 'package:portofolio/cubit/porto_cubit.dart';
 import 'package:portofolio/ui/components/portofolio_tile.dart';
 import 'package:trade/cubit/cubit.dart';
@@ -24,12 +23,6 @@ class PortofolioScreen extends StatelessWidget {
             context.read<TradeCubit>().reset();
           },
         ),
-        // BlocListener<MarketCubit, MarketState>(
-        //   listenWhen: (previous, current) => current.marketState.status == ViewState.hasData,
-        //   listener: (context, state) async {
-        //     context.read<PortoCubit>().loadPortfolio();
-        //   },
-        // ),
         BlocListener<PortoCubit, PortoState>(
           listenWhen: (previous, current) => current.marketState.status == ViewState.noData,
           listener: (context, state) async {
@@ -104,43 +97,37 @@ class PortofolioScreen extends StatelessWidget {
                   child: Text('Add Funds'),
                 ),
               ),
-              BlocBuilder<MarketCubit, MarketState>(
-                builder: (context, marketState) {
-                  if (marketState.marketState.status == ViewState.hasData &&
-                      marketState.marketState.data != null) {
-                    return BlocBuilder<PortoCubit, PortoState>(
-                      builder: (context, state) {
-                        var list = state.marketState.data;
-                        if (state.marketState.status == ViewState.loading) {
-                          return Expanded(child: Center(child: Text('Loading...')));
-                        }
-                        return Expanded(
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) => SizedBox(height: 10),
-                            itemCount: list?.length ?? 0,
-                            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                            itemBuilder: (context, index) {
-                              var data = list?[index];
-                              return PortfolioTile(
-                                todayPnl: data?.todayPnL ?? 0,
-                                avgPrice: data?.avgBuyPrice ?? 0,
-                                imageUrl: data?.image ?? '',
-                                name: data?.name ?? '',
-                                symbol: data?.symbol ?? '',
-                                quantity: data?.totalQuantity ?? 0,
-                                value: data?.totalValue ?? 0,
-                                pnl: data?.unrealizedPnL ?? 0,
-                                lastPrice: data?.currentPrice ?? 0,
-                              );
-                            },
-                          ),
+              Expanded(
+                child: BlocBuilder<PortoCubit, PortoState>(
+                  builder: (context, state) {
+                    var list = state.marketState.data;
+                    if (state.marketState.status == ViewState.loading) {
+                      return Center(child: Text('Loading...'));
+                    }
+                    if (list?.isEmpty ?? true) {
+                      return Center(child: Text('Belum ada data!'));
+                    }
+                    return ListView.separated(
+                      separatorBuilder: (context, index) => SizedBox(height: 10),
+                      itemCount: list?.length ?? 0,
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      itemBuilder: (context, index) {
+                        var data = list?[index];
+                        return PortfolioTile(
+                          todayPnl: data?.todayPnL ?? 0,
+                          avgPrice: data?.avgBuyPrice ?? 0,
+                          imageUrl: data?.image ?? '',
+                          name: data?.name ?? '',
+                          symbol: data?.symbol ?? '',
+                          quantity: data?.totalQuantity ?? 0,
+                          value: data?.totalValue ?? 0,
+                          pnl: data?.unrealizedPnL ?? 0,
+                          lastPrice: data?.currentPrice ?? 0,
                         );
                       },
                     );
-                  } else {
-                    return Expanded(child: Center(child: CircularProgressIndicator()));
-                  }
-                },
+                  },
+                ),
               ),
               // BlocBuilder<MarketCubit, MarketState>(
               //   builder: (context, state) {

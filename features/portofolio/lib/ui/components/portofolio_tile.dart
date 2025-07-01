@@ -3,7 +3,7 @@ import 'package:dependencies/intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class PortfolioTile extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final String name;
   final String symbol;
   final double quantity;
@@ -15,7 +15,7 @@ class PortfolioTile extends StatelessWidget {
 
   const PortfolioTile({
     super.key,
-    required this.imageUrl,
+    this.imageUrl,
     required this.name,
     required this.symbol,
     required this.quantity,
@@ -49,11 +49,14 @@ class PortfolioTile extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.network(
-                      imageUrl,
-                      height: 25,
-                      width: 25,
-                    ),
+                    if (imageUrl?.isEmpty ?? true)
+                      Icon(Icons.image_not_supported_outlined)
+                    else
+                      Image.network(
+                        imageUrl ?? '',
+                        height: 25,
+                        width: 25,
+                      ),
                     SizedBox(width: 10.w),
                     Text(
                       symbol.toUpperCase(),

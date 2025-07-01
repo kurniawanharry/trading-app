@@ -5,7 +5,10 @@ import 'package:dependencies/equatable/equatable.dart';
 part 'trade_form_state.dart';
 
 class TradeFormCubit extends Cubit<TradeFormState> {
-  TradeFormCubit() : super(TradeFormState(isBuy: true));
+  TradeFormCubit()
+      : super(
+          TradeFormState(isBuy: true),
+        );
 
   void toggleBuySell(bool isBuy) {
     emit(state.copyWith(isBuy: isBuy));
@@ -17,22 +20,11 @@ class TradeFormCubit extends Cubit<TradeFormState> {
     emit(state.copyWith(price: price, total: total));
   }
 
-  // void updateTotal(double price) {
-  //   final amount = state.amount;
-  //   final price = state.price;
-  //   final total = amount != null ? (price ?? 0) * amount : null;
-  //   emit(state.copyWith(total: price ?? total));
-  // }
-
   void updateAmount(double amount) {
     final price = state.price;
     final total = price != null ? price * amount : null;
     emit(state.copyWith(amount: amount, total: total));
   }
-
-  // void updateAmount(double newAmount) {
-  //   emit(state.copyWith(amount: newAmount));
-  // }
 
   void increaseAmount({double step = 1.0}) {
     final newAmount = (state.amount ?? 0) + step;

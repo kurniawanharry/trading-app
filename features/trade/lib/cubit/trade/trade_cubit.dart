@@ -66,6 +66,8 @@ class TradeCubit extends Cubit<TradeState> {
   }
 
   submit({bool isBuy = true, double? price, double? amount}) async {
+    emit(state.copyWith(tradeSubmit: ViewData.loading()));
+
     final trade = SimulatedTrade(
       symbol: state.coinGeckoCoin?.symbol ?? '',
       price: price ?? 0,
@@ -75,17 +77,20 @@ class TradeCubit extends Cubit<TradeState> {
       timestamp: DateTime.now(),
     );
 
-    try {
-      await tradeRecordUsecase.call(trade);
-      emit(state.copyWith(tradeSubmit: ViewData.loaded(data: true)));
-    } catch (e) {
-      emit(state.copyWith(
-        tradeSubmit: ViewData.error(
-          failure: FailureResponse(errorMessage: e.toString()),
-          message: 'Error',
-        ),
-      ));
-    }
+    var result = await tradeRecordUsecase.call(trade);
+    result.fold(
+      (l) {
+        emit(state.copyWith(
+          tradeSubmit: ViewData.error(
+            failure: l,
+            message: 'Error',
+          ),
+        ));
+      },
+      (r) {
+        emit(state.copyWith(tradeSubmit: ViewData.loaded(data: true)));
+      },
+    );
   }
 
   updateCoin(CoinGeckoCoin? coinGeckoCoin) {

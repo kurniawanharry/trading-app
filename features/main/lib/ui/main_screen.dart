@@ -1,6 +1,5 @@
 import 'package:dependencies/bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:home/ui/ui.dart';
 import 'package:main/cubit/main_cubit.dart';
 import 'package:market/ui/market_screen.dart';
 import 'package:portofolio/ui/portofolio_screen.dart';

@@ -9,6 +9,7 @@ class CoinTickerMapper {
         baseAsset: coin?.symbol.toUpperCase() ?? '',
         name: coin?.name ?? '',
         imageUrl: coin?.image ?? '',
+        openPrice: 0.0,
         price: 0.0,
         priceChangePercentage24h: 0.0,
       ),

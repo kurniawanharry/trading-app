@@ -26,6 +26,7 @@ class ApplicationRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 690),
+      // minTextAdapt: true,
       builder: (_, __) => MaterialApp(
         title: Config.appFlavor.name,
         // debugShowCheckedModeBanner: Config.isDebug,

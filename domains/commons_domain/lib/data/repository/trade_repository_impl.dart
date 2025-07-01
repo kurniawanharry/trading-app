@@ -5,7 +5,6 @@ import 'package:commons_domain/data/models/trades/response/simulated_trade.dart'
 import 'package:commons_domain/domain/repository/trade_repository.dart';
 import 'package:dependencies/dartz/dartz.dart';
 import 'package:dependencies/shared_preferences/shared_preferences.dart';
-import 'package:flutter/foundation.dart';
 
 class TradeRepositoryImpl extends TradeRepository {
   final SharedPreferences sharedPreferences;
@@ -27,15 +26,36 @@ class TradeRepositoryImpl extends TradeRepository {
   @override
   Future<Either<FailureResponse, void>> recordTrade(SimulatedTrade trade) async {
     final trades = await getAllTrades();
-    var list = trades;
+    final List<SimulatedTrade> list = [...trades];
+
+    // Group trades by symbol
+    final symbolTrades = list.where((t) => t.symbol == trade.symbol).toList();
+
+    // Calculate current holdings for this symbol
+    double totalQty = 0;
+    for (var t in symbolTrades) {
+      if (t.isBuy) {
+        totalQty += t.quantity;
+      } else {
+        totalQty -= t.quantity;
+      }
+    }
+
+    // If it's a sell, ensure user has enough
+    if (!trade.isBuy && trade.quantity > totalQty) {
+      return Left(
+        FailureResponse(
+          statusCode: 400,
+          errorMessage: "Insufficient holdings to sell ${trade.symbol.toUpperCase()}",
+        ),
+      );
+    }
+
+    // Record the trade
     list.add(trade);
-    print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-    print(list);
     final encoded = jsonEncode(list.map((t) => t.toJson()).toList());
-    print('=========================================');
-    print('=========================================');
-    print(encoded);
     await sharedPreferences.setString(key, encoded);
+
     return Right(null);
   }
 

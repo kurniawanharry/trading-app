@@ -1,3 +1,4 @@
+import 'package:dependencies/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,6 +19,7 @@ ThemeData get appTheme => ThemeData(
         selectionColor: Color(0xFFFFD700),
         selectionHandleColor: Colors.black,
       ),
+      // textTheme: responsiveTextTheme,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFFFFD700), // gold
@@ -71,3 +73,20 @@ AppBarTheme get appBarTheme => const AppBarTheme(
         fontWeight: FontWeight.w600,
       ),
     );
+
+// final TextTheme responsiveTextTheme = TextTheme(
+//   displayLarge: TextStyle(fontSize: 57.sp, fontWeight: FontWeight.bold),
+//   displayMedium: TextStyle(fontSize: 45.sp, fontWeight: FontWeight.bold),
+//   displaySmall: TextStyle(fontSize: 36.sp, fontWeight: FontWeight.normal),
+//   headlineLarge: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.normal),
+//   headlineMedium: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w500),
+//   headlineSmall: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
+//   titleLarge: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600),
+//   titleMedium: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+//   titleSmall: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+//   bodyLarge: TextStyle(fontSize: 16.sp),
+//   bodyMedium: TextStyle(fontSize: 14.sp),
+//   bodySmall: TextStyle(fontSize: 12.sp),
+//   labelLarge: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+//   labelSmall: TextStyle(fontSize: 11.sp),
+// );
