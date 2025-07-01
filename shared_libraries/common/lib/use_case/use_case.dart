@@ -12,6 +12,11 @@ abstract class UseCaseStream<T, Params> {
   Stream<Either<FailureResponse, T>> call(Params params);
 }
 
+abstract class UseCaseSimple<T, Params> {
+  const UseCaseSimple();
+  Future<T> call(Params params);
+}
+
 class NoParams extends Equatable {
   const NoParams();
   @override

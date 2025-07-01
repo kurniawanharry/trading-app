@@ -28,6 +28,8 @@ dependencies:
     path: features/main
   market:
     path: features/market
+  trade:
+    path: features/trade
   portofolio:
     path: features/portofolio
 

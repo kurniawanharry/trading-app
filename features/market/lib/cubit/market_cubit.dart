@@ -46,12 +46,14 @@ class MarketCubit extends Cubit<MarketState> {
           final initialMap = {
             for (final coin in coinGeckoCoin)
               '${coin.symbol.toUpperCase()}USDT': CoinTicker(
-                  symbol: '${coin.symbol.toUpperCase()}USDT',
-                  baseAsset: coin.symbol.toUpperCase(),
-                  name: coin.name,
-                  imageUrl: coin.image,
-                  price: 0.0,
-                  priceChangePercentage24h: 0.0),
+                symbol: '${coin.symbol.toUpperCase()}USDT',
+                baseAsset: coin.symbol.toUpperCase(),
+                name: coin.name,
+                imageUrl: coin.image,
+                openPrice: 0.0,
+                price: 0.0,
+                priceChangePercentage24h: 0.0,
+              ),
           };
           _tickerMap.addAll(initialMap);
         }
@@ -78,12 +80,17 @@ class MarketCubit extends Cubit<MarketState> {
         (trade) {
           final symbol = trade.symbol.toUpperCase();
           final price = trade.lastPrice;
+          final open = trade.openPrice;
           final priceChange =
               trade.openPrice != 0 ? ((price - trade.openPrice) / trade.openPrice) * 100 : 0.0;
 
           final existing = _tickerMap[symbol];
           if (existing != null) {
-            final updated = existing.copyWith(price: price, priceChangePercentage: priceChange);
+            final updated = existing.copyWith(
+              price: price,
+              priceChangePercentage: priceChange,
+              openPrice: open,
+            );
             _tickerMap[symbol] = updated;
             emit(state.copyWith(marketState: ViewData.loaded(data: Map.from(_tickerMap))));
           }

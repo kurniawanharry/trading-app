@@ -15,6 +15,7 @@ import 'package:resources/theme.dart';
 import 'package:common/navigation/router/routes.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:trade/cubit/cubit.dart';
 
 part 'application_rooting_extensions.dart';
 
@@ -82,7 +83,23 @@ class ApplicationRoot extends StatelessWidget {
                           ],
                         ),
                     ),
-                    BlocProvider(create: (context) => PortoCubit()),
+                    BlocProvider(
+                      create: (context) => TradeCubit(
+                        tradeHistoryUsecase: sl(),
+                        tradeRecordUsecase: sl(),
+                        marketCubit: context.read<MarketCubit>(),
+                        streamMarketUsecase: sl(),
+                      )
+                        ..fetchGeckoCoin()
+                        ..streamSelectedSymbol('btcusdt'),
+                    ),
+                    BlocProvider(create: (context) => TradeFormCubit()),
+                    BlocProvider(
+                      create: (context) => PortoCubit(
+                        tradeHistoryUsecase: sl(),
+                        marketCubit: context.read<MarketCubit>(),
+                      ),
+                    )
                   ],
                   child: MainScreen(),
                 ),

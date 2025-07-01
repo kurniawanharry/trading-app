@@ -25,11 +25,12 @@ dependencies:
   shared_preferences: ^2.0.15
   fluttertoast: ^8.2.12
   web_socket_channel: ^3.0.3
-
+  auto_size_text: ^3.0.0
 
   #domains
   commons_domain:
-   path: ../../domains/commons_domain
+    path: ../../domains/commons_domain
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

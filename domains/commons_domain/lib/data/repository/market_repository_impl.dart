@@ -14,12 +14,16 @@ class MarketRepositoryImpl implements MarketRepository {
 
   @override
   Stream<Either<FailureResponse, TickerData>> streamTradeData(String symbol) {
-    socketDataSource.connect('$symbol@trade');
-
-    return socketDataSource.stream.map<Either<FailureResponse, TickerData>>((data) {
+    return socketDataSource
+        .connect('$symbol@ticker')
+        .map<Either<FailureResponse, TickerData>>((event) {
       try {
-        final json = jsonDecode(data);
-        final trade = TickerData.fromJson(json);
+        final jsonData = jsonDecode(event);
+
+        // Fallback to jsonData if 'data' not found
+        final data = jsonData['data'] ?? jsonData;
+
+        final trade = TickerData.fromJson(data);
         return Right(trade);
       } catch (e) {
         return Left(FailureResponse(statusCode: 500, errorMessage: 'Parsing error: $e'));
@@ -34,7 +38,7 @@ class MarketRepositoryImpl implements MarketRepository {
     return socketDataSource.connectMultiple(symbols).map((event) {
       try {
         final jsonData = jsonDecode(event);
-        final stream = jsonData['stream']; // e.g. 'btcusdt@trade'
+        // final stream = jsonData['stream']; // e.g. 'btcusdt@trade'
         final data = jsonData['data'];
         final trade = TickerData.fromJson(data);
         return Right(trade);

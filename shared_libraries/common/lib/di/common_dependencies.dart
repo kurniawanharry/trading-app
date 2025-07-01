@@ -9,8 +9,7 @@ class CommonDependencies {
     _routers();
   }
 
-  void _navigation() =>
-      sl.registerLazySingleton<NavigationHelper>(() => NavigationHelperImpl());
+  void _navigation() => sl.registerLazySingleton<NavigationHelper>(() => NavigationHelperImpl());
 
   void _routers() {
     sl.registerLazySingleton<SplashRouter>(

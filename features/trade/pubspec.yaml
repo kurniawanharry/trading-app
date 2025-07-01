@@ -10,6 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Domains
+  commons_domain:
+    path: ../../domains/commons_domain
+
   #shared
   common:
     path: ../../shared_libraries/common
@@ -21,6 +25,11 @@ dependencies:
   #resource
   resources:
     path: ../../resources/resources
+
+  portofolio:
+    path: ../portofolio
+  market:
+    path: ../market
 
 dev_dependencies:
   flutter_test:

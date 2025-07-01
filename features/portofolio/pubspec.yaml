@@ -10,6 +10,15 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Domains
+  commons_domain:
+    path: ../../domains/commons_domain
+
+  market:
+    path: ../market
+  trade:
+    path: ../trade
+
   #shared
   common:
     path: ../../shared_libraries/common

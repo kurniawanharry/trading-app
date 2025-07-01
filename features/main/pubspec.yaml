@@ -29,6 +29,8 @@ dependencies:
     path: ../market
   portofolio:
     path: ../portofolio
+  trade:
+    path: ../trade
 
 dev_dependencies:
   flutter_test:

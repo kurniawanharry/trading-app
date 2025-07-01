@@ -8,7 +8,8 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
+    sdk:
+      flutter
 
       #shared
   core:
@@ -19,6 +20,9 @@ dependencies:
     path: ../../shared_libraries/dependencies
   component:
     path: ../../shared_libraries/component
+
+  market:
+    path: ../../features/market
 
   #resource
   resources:
